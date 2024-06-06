@@ -6,7 +6,7 @@ export const getAvatar = async () => {
   const { data, error } = await supabase
     .from("profiles")
     .select(`avatar_url`)
-    .eq("id", user.id)
+    .eq("id", user?.id)
     .single();
 
   if (error) {
