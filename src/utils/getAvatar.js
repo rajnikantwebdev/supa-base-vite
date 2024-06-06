@@ -1,8 +1,14 @@
 import { getProfile } from "./getProfile";
 import { supabase } from "./supabaseClient";
+import { redirect } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 export const getAvatar = async () => {
   const user = await getProfile();
+
+  if (!user) {
+    return;
+  }
   const { data, error } = await supabase
     .from("profiles")
     .select(`avatar_url`)

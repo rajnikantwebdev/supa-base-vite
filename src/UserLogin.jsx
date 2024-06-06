@@ -1,6 +1,6 @@
-import UserFormAuthentication from "./src/userAuth";
+import UserFormAuthentication from "./userAuth";
 
-function UserRegisterPage() {
+function UserLoginPage() {
   return (
     <section className="w-full min-h-screen flex  items-center">
       <UserFormAuthentication />
@@ -16,5 +16,5 @@ function UserRegisterPage() {
   );
 }
 
-export default UserRegisterPage;
+export default UserLoginPage;
 // bg-gradient-to-b from-violet-600 to-yellow-50

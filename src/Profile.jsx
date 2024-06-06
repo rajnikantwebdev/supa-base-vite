@@ -3,6 +3,7 @@ import EditProfile from "./EditProfile";
 import EditAvatar from "./EditAvatar";
 import { useEffect } from "react";
 import { getAvatar } from "./utils/getAvatar";
+import { logoutUser } from "./utils/logoutUser";
 
 export default function Profile({ user }) {
   const [editUser, setEditUser] = useState(false);
