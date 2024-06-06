@@ -20,8 +20,8 @@ A Supabase project created (get your project URL and API key from the Supabase d
 Installation:
 
 Bash
-git clone https://your-repository-url.git
-cd your-project-name
+git clone https://github.com/rajnikantwebdev/supa-base-vite.git
+cd supa-base-vite
 npm install  
 
 Configuration:
