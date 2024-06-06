@@ -1,12 +1,10 @@
 import { supabase } from "./supabaseClient";
-import uploadToAvatarToCloud from "./cloudinary";
-import axios from "axios";
 import { getProfile } from "./getProfile";
 
 export const updateAvatar = async (value, { setSubmitting }) => {
+  // this is used to update the user avatar
   try {
-    const user = await getProfile();
-    console.log("user ", user);
+    const user = await getProfile(); // getting the user
 
     const formData = new FormData();
     formData.append("file", value.file);
@@ -14,6 +12,7 @@ export const updateAvatar = async (value, { setSubmitting }) => {
     formData.append("cloud_name", "dzdwprpbl");
 
     const response = await fetch(
+      // here using the cloudinary to get the URL out of image
       `https://api.cloudinary.com/v1_1/${
         import.meta.env.VITE_CLOUD_NAME
       }/image/upload`,
@@ -24,7 +23,7 @@ export const updateAvatar = async (value, { setSubmitting }) => {
     );
     const result = await response.json();
 
-    const { data, error } = await supabase
+    const { data, error } = await supabase // storing the avatar url in database
       .from("profiles")
       .upsert({ id: user?.id, avatar_url: result?.url, updated_at: new Date() })
       .select();
@@ -39,6 +38,6 @@ export const updateAvatar = async (value, { setSubmitting }) => {
     console.log("Error while uploading the avatar...", error);
     throw new Error(error || "Something went wrong try again later!");
   } finally {
-    setSubmitting(false);
+    setSubmitting(false); // finally making isSubmitting false
   }
 };

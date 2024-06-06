@@ -4,18 +4,20 @@ import * as Yup from "yup";
 import { updateUser } from "./utils/updateUser";
 
 const authenticationSchema = Yup.object().shape({
+  // handling validation using Yup
   username: Yup.string().required("Required"),
   age: Yup.number().required("Required"),
 });
 
 const EditProfile = ({ supaUsername, supaAge, setEditUser }) => {
+  // using Formik to handle user info update
   return (
     <div className="bg-secondColor min-w-[40rem] max-w-4xl rounded-xl fixed px-6 py-12">
       <div className="mb-12">
         <h2 className="text-3xl text-thirdColor">Edit your Profile!</h2>
       </div>
       <Formik
-        initialValues={{ username: supaUsername, age: supaAge }}
+        initialValues={{ username: supaUsername, age: supaAge }} // passing the initial value from props
         validationSchema={authenticationSchema}
         onSubmit={async (values, { setSubmitting }) => {
           try {
@@ -72,7 +74,7 @@ const EditProfile = ({ supaUsername, supaAge, setEditUser }) => {
                 {props.isSubmitting ? "Submitting..." : "Submit"}
               </button>
               <button
-                onClick={() => setEditUser(false)}
+                onClick={() => setEditUser(false)} // making editUser false
                 className="mt-4 px-2 py-1 bg-red-400 text-white hover:bg-red-600"
               >
                 close

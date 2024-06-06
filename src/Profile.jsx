@@ -3,18 +3,17 @@ import EditProfile from "./EditProfile";
 import EditAvatar from "./EditAvatar";
 import { useEffect } from "react";
 import { getAvatar } from "./utils/getAvatar";
-import { logoutUser } from "./utils/logoutUser";
 
+// Profile component to let user change or manage their info
 export default function Profile({ user }) {
   const [editUser, setEditUser] = useState(false);
   const [editAvatar, setAvatar] = useState(false);
-
   const [avatarUrl, setAvatarUrl] = useState(null);
 
   useEffect(() => {
     const fetchAvatarFromDatabase = async () => {
-      const response = await getAvatar();
-      setAvatarUrl(response);
+      const response = await getAvatar(); // fetching the avatar from database
+      setAvatarUrl(response); // setting avatarURl to response
     };
     fetchAvatarFromDatabase();
   }, []);
@@ -24,7 +23,7 @@ export default function Profile({ user }) {
       <div className="bg-secondColor rounded-xl px-4 py-6 max-w-2xl min-w-96 flex gap-12 relative">
         <div className="relative profile w-1/2 h-1/2 rounded-full bg-red-400">
           <img
-            src={avatarUrl !== null ? avatarUrl : "/male.png"}
+            src={avatarUrl !== null ? avatarUrl : "/male.png"} // conditionally rendering the image
             alt="user profile"
             className="w-full h-full object-cover rounded-full"
           />
@@ -80,14 +79,14 @@ export default function Profile({ user }) {
           </svg>
         </button>
       </div>
-      {editUser && (
+      {editUser && ( // if editUser is true load EditProfile
         <EditProfile
           supaUsername={user?.user?.user_metadata?.username}
           supaAge={user?.user?.user_metadata?.age}
           setEditUser={setEditUser}
         />
       )}
-      {editAvatar && (
+      {editAvatar && ( // if editAvatar is true load editAvatar
         <EditAvatar setAvatar={setAvatar} oldAvatar={"/male.png"} />
       )}
     </section>

@@ -1,25 +1,27 @@
 import { getProfile } from "./getProfile";
 import { supabase } from "./supabaseClient";
-import { redirect } from "react-router-dom";
-import { useNavigate } from "react-router-dom";
 
 export const getAvatar = async () => {
-  const user = await getProfile();
-
+  // 1. Check if the user is authenticated
+  const user = await getProfile(); // Fetch the user's profile data (likely from a Supabase user session)
   if (!user) {
-    return;
+    return; // If no user is found, return without performing any further actions
   }
+
+  // 2. Fetch the avatar URL from the database
   const { data, error } = await supabase
-    .from("profiles")
-    .select(`avatar_url`)
-    .eq("id", user?.id)
-    .single();
+    .from("profiles") // Select from the "profiles" table
+    .select(`avatar_url`) // Fetch only the "avatar_url" column
+    .eq("id", user?.id) // Filter to match the authenticated user's ID
+    .single(); // Expect only a single row in the result
 
+  // 3. Handle errors
   if (error) {
-    console.error("Unable to fetch User profile ", error);
-    throw new Error("Unable to fetch user Profile");
+    console.error("Unable to fetch User profile ", error); // Log the error for debugging
+    throw new Error("Unable to fetch user Profile"); // Throw an error to signal a problem
   }
 
-  console.log("data ", data);
-  return data?.avatar_url;
+  // 4. Return the avatar URL
+  console.log("data ", data); // Log the fetched data (optional)
+  return data?.avatar_url; // Return the avatar_url property if it exists, otherwise null
 };

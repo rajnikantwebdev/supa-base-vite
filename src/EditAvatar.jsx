@@ -5,9 +5,10 @@ import { updateAvatar } from "./utils/updateAvatar";
 import { getAvatar } from "./utils/getAvatar";
 
 const FILE_SIZE = 2000000; // 5MB (Adjust as needed)
-const SUPPORTED_FORMATS = ["image/jpg", "image/jpeg", "image/png"];
+const SUPPORTED_FORMATS = ["image/jpg", "image/jpeg", "image/png"]; // accepted format
 
 const authenticationSchema = Yup.object().shape({
+  // using Yup schema to handle validation
   file: Yup.mixed()
     .nullable()
     .required()
@@ -35,6 +36,7 @@ const EditAvatar = ({ oldAvatar, setAvatar }) => {
   }, []);
 
   return (
+    // using formkik to handle update Avatar
     <div className="bg-secondColor min-w-[40rem] max-w-4xl rounded-xl fixed px-6 py-12">
       <div className="mb-12">
         <h2 className="text-3xl text-thirdColor">Edit Avatar!</h2>
@@ -45,7 +47,7 @@ const EditAvatar = ({ oldAvatar, setAvatar }) => {
         onSubmit={async (values, { setSubmitting }) => {
           try {
             console.log(values);
-            const response = await updateAvatar(values, { setSubmitting });
+            const response = await updateAvatar(values, { setSubmitting }); // using the upadteAvatar Function
             console.log(response);
           } catch (error) {
             console.log("uploading avatar failed", error);
@@ -57,7 +59,7 @@ const EditAvatar = ({ oldAvatar, setAvatar }) => {
             <div className="flex gap-4 flex-col flex-1 min-h-64 items-center justify-center">
               <div className="relative profile rounded-full  h-4/6 w-4/6">
                 <img
-                  src={avatarUrl !== null ? avatarUrl : "/male.png"}
+                  src={avatarUrl !== null ? avatarUrl : "/male.png"} // conditionally rendering the avatar
                   alt="user profile"
                   className="w-full h-full object-cover rounded-full"
                 />

@@ -1,6 +1,7 @@
 import UserFormAuthentication from "./userAuth";
 
 function UserRegisterPage() {
+  // rendering user Register page
   return (
     <section className="w-full min-h-screen flex  items-center">
       <UserFormAuthentication />

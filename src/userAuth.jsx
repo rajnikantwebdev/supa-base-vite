@@ -24,6 +24,7 @@ const loginSchema = Yup.object().shape({
 });
 
 const UserFormAuthentication = () => {
+  // conditionally rendering the register and login page
   const location = useLocation();
   const navigate = useNavigate();
   return (
@@ -36,21 +37,22 @@ const UserFormAuthentication = () => {
           with simple steps.
         </h4>
       </div>
-      {location.pathname === "/register" ? (
+      {location.pathname === "/register" ? ( // if url is /register render Register page
         <>
           <div className="mb-12">
             <h2 className="text-3xl text-thirdColor">Register yourself!</h2>
           </div>
-          <Formik
+          <Formik // using formik to handle user register
             initialValues={{ username: "", email: "", age: "", password: "" }}
             validationSchema={authenticationSchema}
             onSubmit={async (values, { setSubmitting, resetForm }) => {
               try {
                 const response = await userSignup(values, {
+                  // using userSignup function to register user on supabase
                   setSubmitting,
                   resetForm,
                 });
-                navigate("/", { replace: true });
+                navigate("/", { replace: true }); // after registering redirecting to / page
               } catch (error) {
                 console.log("Error in Registering: ", error);
                 throw new Error("Unable to register user, try again later.");
@@ -128,21 +130,22 @@ const UserFormAuthentication = () => {
             )}
           </Formik>
         </>
-      ) : location.pathname === "/login" ? (
+      ) : location.pathname === "/login" ? ( // if URl is /login render Login Page
         <>
           <div className="mb-12">
-            <h2 className="text-3xl text-thirdColor">Register yourself!</h2>
+            <h2 className="text-3xl text-thirdColor">Login yourself!</h2>
           </div>
           <Formik
-            initialValues={{ email: "", password: "" }}
+            initialValues={{ email: "", password: "" }} // using email and password based authentication
             validationSchema={loginSchema}
             onSubmit={async (values, { setSubmitting, resetForm }) => {
               try {
                 const response = await loginUser(values, {
+                  // using loginUser function
                   setSubmitting,
                   resetForm,
                 });
-                navigate("/", { replace: true });
+                navigate("/", { replace: true }); // navigating back to main page after login
               } catch (error) {
                 console.log("Error in Registering: ", error);
                 throw new Error("Unable to register user, try again later.");

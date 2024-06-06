@@ -1,13 +1,11 @@
 import { supabase } from "./supabaseClient";
-import { redirect } from "react-router-dom";
 
 export const logoutUser = async () => {
-  const { error } = await supabase.auth.signOut();
+  // this is basically signing out the user
+  const { error } = await supabase.auth.signOut(); // using signOut function
 
   if (error) {
     console.log("error in logging out", error);
-    return redirect("/login");
+    return;
   }
-
-  redirect("/login");
 };

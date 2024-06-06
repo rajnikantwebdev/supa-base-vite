@@ -1,9 +1,10 @@
-import { redirect } from "react-router-dom";
 import { supabase } from "./supabaseClient";
 
 export const loginUser = async (values, { setSubmitting, resetForm }) => {
+  // simple function to login user
   try {
     const { data, error } = await supabase.auth.signInWithPassword({
+      // using email and password based login system
       email: values.email,
       password: values.password,
     });
@@ -12,12 +13,10 @@ export const loginUser = async (values, { setSubmitting, resetForm }) => {
       console.error("Error while login ", error);
       throw new Error("Unable to login");
     }
-
-    redirect("/");
   } catch (error) {
     console.error("Error while login ", error);
     throw new Error("Unable to login");
   } finally {
-    setSubmitting(false);
+    setSubmitting(false); // finally making isSubmitting false
   }
 };

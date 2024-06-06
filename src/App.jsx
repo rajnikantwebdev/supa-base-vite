@@ -39,8 +39,9 @@ function App() {
   }, []);
 
   return (
+    // conditionally rendering user
     <main className="flex justify-center items-center flex-col min-h-screen ">
-      {user === null ? (
+      {user === null ? ( // if user is null, render Register and Login button
         <>
           <div className="text-5xl font-sans font-bold text-center">
             <span className="text-thirdColor hover:text-purple-600">
@@ -64,6 +65,7 @@ function App() {
           </div>
         </>
       ) : (
+        // render Profile component if user is not null.
         <>
           <Profile user={user} />
           <button
